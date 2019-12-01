@@ -35,10 +35,22 @@ app.get('/listings/:id', (req, res) => {
   Listing.findAll({where: {id: req.params.id}}).then(results => res.status(200).send(results)).catch(err => res.status(404).send(err));
 });
 
-app.get('/listings/search', (req, res) => {
-  Listings.findAll({limit: 10, where: {title: {
-    $like: '%' + req.body.query + '%'
-  }}}).then(results => res.status(200).send(results)).catch(err => res.status(404).send(err));
+app.get('/listings/search/:id', (req, res) => {
+  BookingDate.findAll({where: {date: req.body.check_in_date, available: true, listing_id: req.params.id}}).then(results => {
+    if (results.length) {
+      BookingDate.findAll({where: {date: req.body.check_out_date, available: true, listing_id: req.params.id}}).then(results1 => {
+        if (results1.length) {
+          Listings.findAll({limit: 10, where: {title: {
+            $like: '%' + req.body.query + '%'
+          }, }}).then(results => res.status(200).send(results)).catch(err => res.status(404).send(err));
+        } else {
+          res.status(404).send('No listings found for these dates');
+        }
+      });
+    } else {
+      res.status(404).send('No listings found for these dates');
+    }
+  });
 });
 
 app.listen(port, () => {
