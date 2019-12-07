@@ -6,7 +6,7 @@ const sequelize = new Sequelize('austinservice', 'austinliu', null, {
 
 const BookingDate = sequelize.define('Date', {
   date: {
-    type: Sequelize.DATE
+    type: Sequelize.DATEONLY
   },
   available: {
     type: Sequelize.BOOLEAN,

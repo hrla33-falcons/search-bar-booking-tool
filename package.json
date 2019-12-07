@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js",
-    "react-dev": "webpack -d --watch"
+    "react-dev": "webpack -d --watch",
+    "convert-css": "sass  --watch client/src/style.sass:client/dist/style.css"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,10 @@
     "mysql2": "^2.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "sequelize": "^5.21.2"
+    "react-inlinesvg": "^1.2.0",
+    "react-star-ratings": "^2.3.0",
+    "sequelize": "^5.21.2",
+    "svg-inline-loader": "^0.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",

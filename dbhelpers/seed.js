@@ -11,7 +11,7 @@ const Listing = require('./models').Listing;
 
   listingAmenities = ['family-friendly', 'pet-friendly', 'pool', 'gated community', 'fooseball', 'trampoline', 'spa', 'close walk to beach', 'close walk to town', 'close to village', 'surrounded by woods', 'golf resort', 'ski resort', 'gourmet kitchen', 'fishing', 'hiking-friendly', 'amazing garden', 'backyard wilderness', 'yacht', 'boating', 'close to downtown', 'game room', 'ac/heating', 'hot tub', 'jacuzzi', 'bicycles', 'surf', 'great amenities', 'nearby pond', 'fireplace', 'nearby lake', 'garage parking', 'great for photography', 'gym', 'loofers', 'fireplace', 'wildlife', 'nearby trails', 'close to train station', 'stargazing', 'vineyards', 'paddle-boat', 'kayak', 'dock'];
 
-  listingReview = ['Great.', 'Great find.', 'Beautiful view.', 'Great bargain.', 'Good ammenities.', 'Spectacular views.', 'Convenient location.', 'Excellent.', 'Wonderful.', 'Exceptional.', 'Very good.'];
+  listingReview = ['Great.', 'Great find.', 'Beautiful view.', 'Great bargain.', 'Good ammenities.', 'Spectacular views.', 'Convenient location.', 'Excellent.', 'Wonderful.', 'Exceptional.', 'Very good.', 'Good for families.'];
 
   months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
@@ -26,7 +26,7 @@ const Listing = require('./models').Listing;
     for (let i = 0; i < years.length; i++) {
       for (let j = 0; j < datesInMonths.length; j++) {
         for (let k = 0; k < datesInMonths[j]; k++) {
-          for (let l = 0; l < 105; l++) {
+          for (let l = 1; l < 106; l++) {
             date = years[i] + '-' + months[j] + '-' + dates[k];
             bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
           }
@@ -51,7 +51,7 @@ const Listing = require('./models').Listing;
       obj.review_overview = listingReview[Math.floor(Math.random() * listingReview.length)];
       obj.rating = Math.floor(Math.random() * 10) / 10 + 4;
       obj.review_number = Math.floor(Math.random() * 200 + 15);
-      obj.owner = faker.name.firstName();
+      obj.owner = faker.name.findName();
       obj.cleaning_fee = Math.floor(Math.random() * 100) + 10;
       listings.push(obj);
     }
@@ -59,4 +59,4 @@ const Listing = require('./models').Listing;
     Listing.sync({force: true}).then(() => Listing.bulkCreate(listings, {validate: true})).then(() => console.log('Listings created.')).catch(err => console.log('failed to create listings', err));
   };
 
-  generateBookingDates();
+  generateListings();
