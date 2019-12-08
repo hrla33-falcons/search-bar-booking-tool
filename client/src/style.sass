@@ -1,9 +1,10 @@
 $bold-text: 'Noto Sans TC', sans-serif
 $primary-color: #3e64ff
+$gray-color: darken(#f7f7f7, 2%)
 
 .al-header-container
   display: block
-  background-color: darken(#f7f7f7, 0.9%)
+  background-color: $gray-color
 
 .al-logo-title-container
   display: inline-block
@@ -220,7 +221,7 @@ body
   text-align: center
 
 .al-login-option-container:hover
-  background-color: darken(#f7f7f7, 0.9%)
+  background-color: $gray-color
   color: $primary-color
 
 .al-login-option-text
@@ -256,7 +257,7 @@ body
   text-align: center
 
 .al-help-option-container:hover
-  background-color: darken(#f7f7f7, 0.9%)
+  background-color: $gray-color
   color: $primary-color
 
 .al-help-option-text
@@ -358,7 +359,7 @@ body
   transition: background-color .5s linear
 
 .al-flag-language-container:hover
-  background-color: darken(#f7f7f7, 0.9%)
+  background-color: $gray-color
 
 .al-flag-icon
   margin-left: 10px
@@ -565,6 +566,8 @@ body
 
 .al-dates-input-container
   display: block
+  position: relative
+  top: 3px
 
 .al-dates-input
   width: 365px
@@ -577,13 +580,26 @@ body
   display: inline-block
   position: relative
   top: -110px
-  width: 182.5px
+  width: 178.5px
+  height: 50px
+  border: 1px solid gray
+  border-top-left-radius: 5px
+  cursor: pointer
 
 .al-dates-input-check-out-container
   display: inline-block
   position: relative
   top: -110px
-  width: 182.5px
+  width: 178.5px
+  height: 50px
+  border: 1px solid gray
+  border-top-right-radius: 5px
+  cursor: pointer
+
+.al-dates-input-label-container
+  position: relative
+  top: 15px
+  left: 15px
 
 .al-booking-input-bar
   padding: 17.5px 0
@@ -617,7 +633,8 @@ body
   margin-top: 20px
   text-align: left
   border: 1px solid gray
-  border-radius: 5px
+  border-bottom-left-radius: 5px
+  border-bottom-right-radius: 5px
   position: relative
   top: -125px
 
@@ -665,6 +682,18 @@ body
 
 .al-guests-input-label-text
   font-family: $bold-text
+  color: $primary-color
+  font-size: 15px
+
+.al-guests-input-label-text-top
+  font-family: $bold-text
+  color: gray
+  font-size: 12px
+  position: relative
+  top: -15px
+
+.al-guests-input-label-text-bottom
+  font-family: $bold-text
   color: gray
   font-size: 12px
 
@@ -672,7 +701,7 @@ body
   cursor: pointer
   display: block
   position: relative
-  left: 16px
+  left: 20px
 
 .al-guests-input-number-text
   font-family: $bold-text
@@ -932,7 +961,7 @@ body
 .al-selected-dropdown-footer-right-create-form-title
   width: 410px
   height: 50px
-  background-color: darken(#f7f7f7, 0.9%)
+  background-color: $gray-color
   cursor: pointer
 
 .al-selected-dropdown-footer-right-create-form-button-container
@@ -1001,3 +1030,249 @@ body
   font-family: $bold-text
   font-size: 14px
   color: gray
+
+.al-guests-form-adults-row-container
+  display: block
+  position: relative
+  left: 30px
+  top: 45px
+  margin-bottom: 65px
+
+.al-guests-form-adults-amount-container
+  display: inline-block
+  width: 90px
+
+.al-guests-form-childrens-amount-container
+  display: inline-block
+  width: 90px
+
+.al-guests-form-childrens-row-container
+  display: block
+  position: relative
+  left: 30px
+  top: 20px
+
+.al-guests-form-row-text
+  font-family: $bold-text
+  color: gray
+
+.al-guests-form-change-amount-form-container
+  display: inline-block
+  position: relative
+  left: 140px
+
+.al-guests-form-subtract-button-container
+  display: inline-block
+  margin-right: 25px
+
+.al-guests-form-add-button-container
+  display: inline-block
+
+.al-guests-form-button-valid:focus
+  outline: 0
+
+.al-guests-form-button-invalid:focus
+  outline: 0
+
+.al-guests-form-subtract-text
+  font-family: $bold-text
+
+.al-guests-form-button-valid
+  background-color: white
+  width: 45px
+  height: 45px
+  border-radius: 22.5px
+  cursor: pointer
+  border: 1px solid black
+
+.al-guests-form-button-valid:hover
+  border: 1.5px solid $primary-color
+
+.al-guests-form-button-invalid
+  background-color: white
+  width: 45px
+  height: 45px
+  border-radius: 22.5px
+  border: 1px solid lightgray
+
+.al-guests-form-submit-button-container
+  display: block
+  position: relative
+  top: 50px
+  left: 275px
+
+.al-guests-form-submit-button
+  background-color: $primary-color
+  padding: 12.5px 30px
+  border-radius: 25px
+  -webkit-transition: background-color .4s linear
+  -ms-transition: background-color .4s linear
+  transition: background-color .4s linear
+  cursor: pointer
+
+.al-guests-form-submit-button:hover
+  background-color: darken($primary-color, 20%)
+
+.al-guests-form-submit-button-text
+  color: white
+  font-family: $bold-text
+  font-weight: bolder
+
+.al-valid-dates-display-icon-container
+  display: inline-block
+
+.al-valid-dates-display-text-container
+  display: inline-block
+
+.al-valid-dates-display-icon
+  width: 20px
+
+.al-valid-dates-display-text-valid
+  font-family: $bold-text
+  color: gray
+  font-size: 14px
+
+.al-valid-dates-display-valid-container
+  position: relative
+  top: 10px
+  left: 10px
+
+.al-valid-dates-display-text-container
+  position: relative
+  top: -5px
+  left: 10px
+
+.al-booking-calendar-container
+  position: absolute
+  top: 155px
+  left: 735px
+
+.al-calendar-display
+  background-color: white
+  width: 720px
+  height: 400px
+  border: 1px solid lightgray
+
+.al-calendars-container
+  display: block
+  width: 520px
+  height: 290px
+  margin-left: 100px
+  margin-top: 40px
+  text-align: center
+
+.al-calendar-container1
+  display: inline-block
+  margin-right: 5px
+  text-align: center
+
+.al-calendar-container2
+  display: inline-block
+  margin-left: 5px
+
+.al-calendar
+  width: 255px
+  height: 290px
+
+.al-calendar-title-container
+  position: relative
+  top: -5px
+
+.al-calendar-title
+  font-family: $bold-text
+  font-width: bolder
+  font-size: 17px
+
+.al-calendar-table-header-row
+  display: inline-block
+  border-bottom: 1px solid lightgray
+  position: relative
+  top: 15px
+
+.al-calendar-table-header-column
+  padding-right: 11px
+  padding-left: 11px
+
+.al-calendar-table-header-text
+  color: gray
+  font-size: 14px
+
+.al-calendar-table-body
+  display: block
+  position: relative
+  top: 16px
+
+.al-calendar-day-cell
+  cursor: pointer
+  width: 34px
+  height: 33px
+
+.al-calendar-day-cell:hover
+  background-color: $gray-color
+
+.al-calendar-day-cell-text
+  color: $primary-color
+  font-weight: bolder
+
+.al-calendar-clear-dates-container
+  position: relative
+  top: -350px
+  left: -35px
+
+.al-calendar-clear-dates-text
+  color: $primary-color
+  cursor: pointer
+
+.al-calendar-clear-dates-text:hover
+  text-decoration: underline
+
+.al-calendar-left-button-container
+  position: relative
+  display: inline-block
+  left: -580px
+  top: -185px
+
+.al-calendar-right-button-container
+  position: relative
+  display: inline-block
+  top: -185px
+  left: -55px
+
+.al-calendar-button
+  width: 40px
+  padding: 10px 10px
+  border-radius: 20px
+  border: 1px solid gray
+  background-color: white
+  cursor: pointer
+  -webkit-transition: border .3s linear
+  -ms-transition: border .3s linear
+  transition: border .3s linear
+
+.al-calendar-button:hover
+  border: 1.5px solid $primary-color
+
+.al-calendar-button-text
+  font-size: 18px
+  color: gray
+
+.al-calendar-close-container
+  display: block
+  position: relative
+  top: -70px
+  margin-left: 30px
+  width: 660px
+  height: 50px
+  border-radius: 5px
+  background-color: $gray-color
+  cursor: pointer
+
+.al-calendar-close-text-container
+  position: relative
+  top: 12.5px
+  left: -37.5px
+
+.al-calendar-close-text
+  font-family: $bold-text
+  font-weight: bolder
+  font-size: 15px

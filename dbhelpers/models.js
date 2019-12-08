@@ -74,6 +74,18 @@ const Listing = sequelize.define('Listing', {
   cleaning_fee: {
     type: Sequelize.FLOAT(10,2),
     allowNull: false
+  },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  pic: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 
