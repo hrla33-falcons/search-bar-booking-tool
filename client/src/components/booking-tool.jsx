@@ -8,7 +8,7 @@ import DatesInput from './dates-input.jsx';
 import GuestsInput from './guests-input.jsx';
 import BookingSubmitForm from './booking-submit-form.jsx';
 import OwnerInfo from './owner-info.jsx';
-import CalendarDisplay from './calendar.jsx';
+import {CalendarDisplayBooking} from './calendar.jsx';
 
 class BookingTool extends React.Component {
   constructor(props) {
@@ -16,12 +16,15 @@ class BookingTool extends React.Component {
     this.state = {
       check_in: '',
       check_out: '',
-      guests: false
+      guests: false,
+      calendar: false
     };
     this.handleCheckInSelect = this.handleCheckInSelect.bind(this);
     this.handleCheckOutSelect = this.handleCheckOutSelect.bind(this);
     this.handleGuestsForm = this.handleGuestsForm.bind(this);
     this.handleCloseGuestsForm = this.handleCloseGuestsForm.bind(this);
+    this.openCalendar = this.openCalendar.bind(this);
+    this.closeCalendar = this.closeCalendar.bind(this);
   }
 
   handleCheckInSelect(e) {
@@ -30,6 +33,14 @@ class BookingTool extends React.Component {
 
   handleCheckOutSelect(e) {
     this.setState({check_out: e.target.value});
+  }
+
+  openCalendar(e) {
+    this.setState({calendar: true});
+  }
+
+  closeCalendar(e) {
+    this.setState({calendar: false});
   }
 
   componentDidMount() {
@@ -60,7 +71,7 @@ class BookingTool extends React.Component {
           <ValidDatesDisplay />
         </div>
         <div className='al-dates-input-container'>
-          <DatesInput handleCheckInSelect={this.handleCheckInSelect} handleCheckOutSelect={this.handleCheckOutSelect} check_in={this.state.check_in} check_out={this.state.check_out}/>
+          <DatesInput openCalendar={this.openCalendar} handleCheckInSelect={this.handleCheckInSelect} handleCheckOutSelect={this.handleCheckOutSelect} check_in={this.state.check_in} check_out={this.state.check_out}/>
         </div>
         <div className='al-guests-input-container'>
           <GuestsInput guests={this.state.guests} handleGuestsForm={this.handleGuestsForm} handleCloseGuestsForm={this.handleCloseGuestsForm}/>
@@ -72,7 +83,16 @@ class BookingTool extends React.Component {
           <OwnerInfo />
         </div>
         <div className='al-booking-calendar-container'>
-          <CalendarDisplay/>
+        {
+          this.state.calendar ?
+          (
+            <CalendarDisplayBooking closeCalendar={this.closeCalendar}/>
+          )
+          :
+          (
+            null
+          )
+        }
         </div>
       </div>
     );

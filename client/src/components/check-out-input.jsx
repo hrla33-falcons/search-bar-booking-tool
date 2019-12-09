@@ -11,7 +11,9 @@ class CheckOutInput extends React.Component {
   }
 
   handleClick() {
-    this.setState({selected: true});
+    this.setState({selected: true}, () => {
+      this.props.openCalendar();
+    });
   }
 
   componentDidMount() {
