@@ -2,7 +2,8 @@
 import React from 'react';
 import Calendar from './calendar.jsx';
 import { connect } from 'react-redux';
-import {setCheckInDate, setCheckOutDate} from '../redux/booking/booking.action.js';
+import {setCheckInDate, setCheckOutDate, startLoading, stopLoading, makeValid, makeInvalid} from '../redux/booking/booking.action.js';
+import { selectCheckInDate, selectCheckOutDate} from '../redux/booking/booking.selectors.js';
 
 class CalendarDisplay extends React.Component {
   constructor(props) {
@@ -43,11 +44,13 @@ class CalendarDisplay extends React.Component {
         this.setState({check_in_number: e.target.childNodes[0].innerHTML, check_out_number: ''}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
           this.props.setCheckInDate(this.state.check_in);
           this.props.setCheckOutDate(this.state.check_out);
+          this.props.makeInvalid();
         }));
       } else {
         this.setState({check_in_number: e.target.innerHTML, check_out_number: ''}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
           this.props.setCheckInDate(this.state.check_in);
           this.props.setCheckOutDate(this.state.check_out);
+          this.props.makeInvalid();
         }));
       }
     } else if (this.state.check_in_number && !this.state.check_out_number) {
@@ -56,10 +59,12 @@ class CalendarDisplay extends React.Component {
           this.setState({check_in_number: e.target.childNodes[0].innerHTML, check_out_number: ''}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         } else {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeValid();
           }));
         }
       } else {
@@ -67,10 +72,12 @@ class CalendarDisplay extends React.Component {
           this.setState({check_in_number: e.target.innerHTML, check_out_number: ''}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         } else {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeValid();
           }));
         }
       }
@@ -78,9 +85,15 @@ class CalendarDisplay extends React.Component {
       e.persist();
       this.setState({check_in: '', check_out: '', check_in_number: '', check_out_number: ''}, () => {
         if (e.target.childNodes[0].childNodes.length) {
-          this.setState({check_in_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => this.props.setCheckInDate(this.state.check_in)));
+          this.setState({check_in_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => {
+            this.props.setCheckInDate(this.state.check_in);
+            this.props.makeInvalid();
+          }));
         } else {
-          this.setState({check_in_number: e.target.innerHTML}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => this.props.setCheckInDate(this.state.check_in)));
+          this.setState({check_in_number: e.target.innerHTML}, () => this.setState({check_in: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => {
+            this.props.setCheckInDate(this.state.check_in);
+            this.props.makeInvalid();
+          }));
         }
       });
     }
@@ -109,11 +122,13 @@ class CalendarDisplay extends React.Component {
         this.setState({check_in_number: e.target.childNodes[0].innerHTML, check_out_number: ''}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
           this.props.setCheckInDate(this.state.check_in);
           this.props.setCheckOutDate(this.state.check_out);
+          this.props.makeInvalid();
         }));
       } else {
         this.setState({check_in_number: e.target.innerHTML, check_out_number: ''}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
           this.props.setCheckInDate(this.state.check_in);
           this.props.setCheckOutDate(this.state.check_out);
+          this.props.makeInvalid();
         }));
       }
     } else if (this.state.check_in_number && !this.state.check_out_number) {
@@ -122,10 +137,12 @@ class CalendarDisplay extends React.Component {
           this.setState({check_in_number: e.target.childNodes[0].innerHTML, check_out_number: ''}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         } else {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeValid();
           }));
         }
       } else {
@@ -133,10 +150,12 @@ class CalendarDisplay extends React.Component {
           this.setState({check_in_number: e.target.innerHTML, check_out_number: ''}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1], check_out: ''}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         } else {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeValid();
           }));
         }
       }
@@ -147,11 +166,13 @@ class CalendarDisplay extends React.Component {
           this.setState({check_in_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         } else {
           this.setState({check_in_number: e.target.innerHTML}, () => this.setState({check_in: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_in_number) - 1]}, () => {
             this.props.setCheckInDate(this.state.check_in);
             this.props.setCheckOutDate(this.state.check_out);
+            this.props.makeInvalid();
           }));
         }
       });
@@ -162,6 +183,7 @@ class CalendarDisplay extends React.Component {
     this.setState({check_in_number: '', check_in: '', check_out_number: '', check_out: ''}, () => {
       this.props.setCheckInDate(this.state.check_in);
       this.props.setCheckOutDate(this.state.check_out);
+      this.props.makeInvalid();
     });
   }
 
@@ -227,11 +249,22 @@ class CalendarDisplay extends React.Component {
   }
 };
 
+const mapStateToProps = (state) => {
+  return ({
+      selectCheckInDate: selectCheckInDate(state),
+      selectCheckOutDate: selectCheckOutDate(state)
+  });
+};
+
 const mapDispatchToProps = (dispatch) => {
   return ({
       setCheckInDate: (date) => dispatch(setCheckInDate(date)),
-      setCheckOutDate: (date) => dispatch(setCheckOutDate(date))
+      setCheckOutDate: (date) => dispatch(setCheckOutDate(date)),
+      makeValid: () => dispatch(makeValid()),
+      makeInvalid: () => dispatch(makeInvalid()),
+      startLoading: () => dispatch(startLoading()),
+      stopLoading: () => dispatch(stopLoading())
    });
 }
 
-export default connect(null, mapDispatchToProps)(CalendarDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarDisplay);

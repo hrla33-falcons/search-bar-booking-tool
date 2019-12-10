@@ -9,7 +9,7 @@ import SelectedDropdown from './selected-dropdown.jsx';
 import Overlay from './overlay.jsx';
 import {LoadingDots} from './loading-dots.jsx';
 import { connect } from 'react-redux';
-import {selectLoading} from '../redux/booking/booking.selectors.js';
+import {selectLoading, selectRate} from '../redux/booking/booking.selectors.js';
 
 class BookingHeader extends React.Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class BookingHeader extends React.Component {
               <SVG className='al-booking-header-flash' src={LightningIcon} />
             </div>
             <div className='al-booking-header-rate-container'>
-              <h1 className='al-booking-header-rate-text'>$335</h1>
+              <h1 className='al-booking-header-rate-text'>{`$${this.props.selectRate}`}</h1>
             </div>
             <div className='al-booking-header-nightly-container'>
               <span className='al-booking-header-nightly-text'>per night</span>
@@ -112,7 +112,8 @@ class BookingHeader extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-      selectLoading: selectLoading(state)
+      selectLoading: selectLoading(state),
+      selectRate: selectRate(state)
   });
 };
 

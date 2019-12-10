@@ -4,6 +4,7 @@ import SVG from 'react-inlinesvg';
 import PeopleIcon from '../../dist/icons/people.svg';
 import { connect } from 'react-redux';
 import { selectSleepCapacity } from '../redux/booking/booking.selectors.js';
+import { setGuests } from '../redux/booking/booking.action.js';
 
 class GuestsForm extends React.Component {
   constructor(props) {
@@ -21,25 +22,25 @@ class GuestsForm extends React.Component {
 
   incrementAdults() {
     if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
-      this.setState({adults: this.state.adults + 1});
+      this.setState({adults: this.state.adults + 1}, () => this.props.setGuests(this.state.children + this.state.adults));
     }
   }
 
   incrementChildren() {
     if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
-      this.setState({children: this.state.children + 1});
+      this.setState({children: this.state.children + 1}, () => this.props.setGuests(this.state.children + this.state.adults));
     }
   }
 
   decrementAdults() {
     if (this.state.adults > 1) {
-      this.setState({adults: this.state.adults - 1});
+      this.setState({adults: this.state.adults - 1}, () => this.props.setGuests(this.state.children + this.state.adults));
     }
   }
 
   decrementChildren() {
     if (this.state.children > 0) {
-      this.setState({children: this.state.children - 1});
+      this.setState({children: this.state.children - 1}, () => this.props.setGuests(this.state.children + this.state.adults));
     }
   }
 
@@ -113,4 +114,10 @@ const mapStateToProps = (state) => {
   });
 };
 
-export default connect(mapStateToProps, null)(GuestsForm);
+const mapDispatchToProps = (dispatch) => {
+  return ({
+      setGuests: (guests) => dispatch(setGuests(guests))
+   });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GuestsForm);

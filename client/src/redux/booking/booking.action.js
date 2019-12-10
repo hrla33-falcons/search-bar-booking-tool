@@ -129,3 +129,10 @@ export const stopLoading = () => {
   });
 };
 
+export const setGuests = (guests) => {
+  return ({
+    type: 'SET_GUESTS',
+    payload: guests
+  });
+};
+

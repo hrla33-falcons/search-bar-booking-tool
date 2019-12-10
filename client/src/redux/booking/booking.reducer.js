@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   rate: '0.00',
   total: '0.00',
   fee: '50.00',
-  valid: true,
+  valid: false,
   title: '',
   sleep_capacity: 1,
   review_overview: '',
@@ -17,7 +17,8 @@ const INITIAL_STATE = {
   us_state: '',
   city: '',
   pic: '',
-  loading: false
+  loading: false,
+  guests: 1
 };
 
 const BookingReducer = (state=INITIAL_STATE, action) => {
@@ -116,6 +117,11 @@ const BookingReducer = (state=INITIAL_STATE, action) => {
       return ({
         ...state,
         loading: false
+      });
+    case 'SET_GUESTS':
+      return ({
+        ...state,
+        guests: action.payload
       });
     default:
       return state;

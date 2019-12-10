@@ -53,6 +53,11 @@ export const selectRating = createSelector(
   booking => booking.rating
 );
 
+export const selectGuests = createSelector(
+  [selectBooking],
+  booking => booking.guests
+);
+
 export const selectReviewNumber = createSelector(
   [selectBooking],
   booking => booking.review_number

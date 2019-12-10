@@ -1,6 +1,8 @@
 // jshint esversion:6
 import React from 'react';
 import GuestsForm from './guests-form.jsx';
+import { connect } from 'react-redux';
+import { selectGuests } from '../redux/booking/booking.selectors.js';
 
 class GuestsInput extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class GuestsInput extends React.Component {
           <span className='al-guests-input-label-text-bottom'>Guests</span>
         </div>
         <div className='al-guests-input-number-container' onClick={this.props.handleGuestsForm}>
-          <span className='al-guests-input-number-text'>{`${this.state.guests} ${this.state.guests === 1 ? 'guest' : 'guests'}`}</span>
+          <span className='al-guests-input-number-text'>{`${this.props.selectGuests} ${this.props.selectGuests === 1 ? 'guest' : 'guests'}`}</span>
         </div>
         <div className='al-guests-form-container'>
         {
@@ -46,4 +48,10 @@ class GuestsInput extends React.Component {
   }
 };
 
-export default GuestsInput;
+const mapStateToProps = (state) => {
+  return ({
+      selectGuests: selectGuests(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(GuestsInput);
