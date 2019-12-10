@@ -2,6 +2,8 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
 import PeopleIcon from '../../dist/icons/people.svg';
+import { connect } from 'react-redux';
+import { selectSleepCapacity } from '../redux/booking/booking.selectors.js';
 
 class GuestsForm extends React.Component {
   constructor(props) {
@@ -18,13 +20,13 @@ class GuestsForm extends React.Component {
   }
 
   incrementAdults() {
-    if (this.state.children + this.state.adults < 8) {
+    if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
       this.setState({adults: this.state.adults + 1});
     }
   }
 
   incrementChildren() {
-    if (this.state.children + this.state.adults < 8) {
+    if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
       this.setState({children: this.state.children + 1});
     }
   }
@@ -58,7 +60,7 @@ class GuestsForm extends React.Component {
             <SVG className='al-guests-form-icon' src={PeopleIcon}/>
           </div>
           <div className='al-guests-form-text-container'>
-            <span className='al-guests-form-text'>Maximum number of guests is 8</span>
+            <span className='al-guests-form-text'>{`Maximum number of guests is ${this.props.selectSleepCapacity}`}</span>
           </div>
         </div>
         <div className='al-guests-form-adults-row-container'>
@@ -72,7 +74,7 @@ class GuestsForm extends React.Component {
               </button>
             </div>
             <div className='al-guests-form-add-button-container'>
-              <button className={`${this.state.adults + this.state.children === 8 ? 'al-guests-form-button-invalid' : 'al-guests-form-button-valid'} 'al-guests-form-add-button'`} onClick={this.incrementAdults}>
+              <button className={`${this.state.adults + this.state.children === this.props.selectSleepCapacity ? 'al-guests-form-button-invalid' : 'al-guests-form-button-valid'} 'al-guests-form-add-button'`} onClick={this.incrementAdults}>
                 <span className='al-guests-form-add-text'>+</span>
               </button>
             </div>
@@ -89,7 +91,7 @@ class GuestsForm extends React.Component {
               </button>
             </div>
             <div className='al-guests-form-add-button-container'>
-              <button className={`${this.state.adults + this.state.children === 8 ? 'al-guests-form-button-invalid' : 'al-guests-form-button-valid'} 'al-guests-form-add-button'`} onClick={this.incrementChildren}>
+              <button className={`${this.state.adults + this.state.children === this.props.selectSleepCapacity ? 'al-guests-form-button-invalid' : 'al-guests-form-button-valid'} 'al-guests-form-add-button'`} onClick={this.incrementChildren}>
                 <span className='al-guests-form-add-text'>+</span>
               </button>
             </div>
@@ -105,4 +107,10 @@ class GuestsForm extends React.Component {
   }
 };
 
-export default GuestsForm;
+const mapStateToProps = (state) => {
+  return ({
+      selectSleepCapacity: selectSleepCapacity(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(GuestsForm);

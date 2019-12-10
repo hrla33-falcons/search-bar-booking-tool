@@ -2,6 +2,8 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
 import CheckIcon from '../../dist/icons/tick.svg';
+import { connect } from 'react-redux';
+import {selectValid} from '../redux/booking/booking.selectors.js';
 
 class ValidDatesDisplay extends React.Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class ValidDatesDisplay extends React.Component {
     return (
       <div className='al-valid-dates-display'>
       {
-        this.state.valid ?
+        this.props.selectValid ?
         (
           <div className='al-valid-dates-display-valid-container'>
             <div className='al-valid-dates-display-icon-container'>
@@ -54,4 +56,10 @@ class ValidDatesDisplay extends React.Component {
   }
 };
 
-export default ValidDatesDisplay;
+const mapStateToProps = (state) => {
+  return ({
+      selectValid: selectValid(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(ValidDatesDisplay);

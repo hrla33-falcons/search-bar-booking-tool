@@ -7,13 +7,17 @@ import HeartIcon from '../../dist/icons/heart.svg';
 import SharedDropdown from './shared-dropdown.jsx';
 import SelectedDropdown from './selected-dropdown.jsx';
 import Overlay from './overlay.jsx';
+import {LoadingDots} from './loading-dots.jsx';
+import { connect } from 'react-redux';
+import {selectLoading} from '../redux/booking/booking.selectors.js';
 
 class BookingHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       shared: false,
-      selected: false
+      selected: false,
+      loading: false
     };
     this.handleClickShared = this.handleClickShared.bind(this);
     this.handleClickSelected = this.handleClickSelected.bind(this);
@@ -44,53 +48,72 @@ class BookingHeader extends React.Component {
   render() {
     return (
       <div className='al-booking-header'>
-        <div className='al-booking-header-flash-container'>
-          <SVG className='al-booking-header-flash' src={LightningIcon} />
-        </div>
-        <div className='al-booking-header-rate-container'>
-          <h1 className='al-booking-header-rate-text'>$335</h1>
-        </div>
-        <div className='al-booking-header-nightly-container'>
-          <span className='al-booking-header-nightly-text'>per night</span>
-        </div>
-        <div className='al-booking-header-icons-container'>
-          <div onClick={this.handleClickShared} className='al-booking-header-icon-container'>
-            <SVG className='al-booking-header-icon' src={UploadIcon} />
+      {
+        this.props.selectLoading ?
+        (
+          <div className='al-loading-dots-container'>
+            <LoadingDots />
           </div>
-          <div onClick={this.handleClickSelected} className='al-booking-header-icon-container'>
-            <SVG className='al-booking-header-icon' src={HeartIcon} />
-          </div>
-        </div>
-        <div className='al-shared-dropdown-container'>
-        {
-          this.state.shared ?
-          (
-            <SharedDropdown handleCloseShared={this.handleCloseShared}/>
-          )
-          :
-          (
-            null
-          )
-        }
-        </div>
-        <div className='al-selected-dropdown-container'>
-        {
-          this.state.selected ?
-          (
-            <div>
-              <SelectedDropdown handleCloseSelected={this.handleCloseSelected}/>
-              <Overlay />
+        )
+        :
+        (
+          <div className='al-booking-subcontainer'>
+            <div className='al-booking-header-flash-container'>
+              <SVG className='al-booking-header-flash' src={LightningIcon} />
             </div>
-          )
-          :
-          (
-            null
-          )
-        }
-        </div>
+            <div className='al-booking-header-rate-container'>
+              <h1 className='al-booking-header-rate-text'>$335</h1>
+            </div>
+            <div className='al-booking-header-nightly-container'>
+              <span className='al-booking-header-nightly-text'>per night</span>
+            </div>
+            <div className='al-booking-header-icons-container'>
+                <div onClick={this.handleClickShared} className='al-booking-header-icon-container'>
+                  <SVG className='al-booking-header-icon' src={UploadIcon} />
+                </div>
+                <div onClick={this.handleClickSelected} className='al-booking-header-icon-container'>
+                  <SVG className='al-booking-header-icon' src={HeartIcon} />
+                </div>
+              </div>
+              <div className='al-shared-dropdown-container'>
+              {
+                this.state.shared ?
+                (
+                  <SharedDropdown handleCloseShared={this.handleCloseShared}/>
+                )
+                :
+                (
+                  null
+                )
+              }
+              </div>
+              <div className='al-selected-dropdown-container'>
+              {
+                this.state.selected ?
+                (
+                  <div>
+                    <SelectedDropdown handleCloseSelected={this.handleCloseSelected}/>
+                    <Overlay />
+                  </div>
+                )
+                :
+                (
+                  null
+                )
+              }
+              </div>
+          </div>
+        )
+      }
       </div>
     );
   }
 };
 
-export default BookingHeader;
+const mapStateToProps = (state) => {
+  return ({
+      selectLoading: selectLoading(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(BookingHeader);

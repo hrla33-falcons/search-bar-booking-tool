@@ -6,6 +6,8 @@ const cors = require('cors');
 const BookingDate = require('../dbhelpers/models').BookingDate;
 const Listing = require('../dbhelpers/models').Listing;
 const path = require('path');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const app = express();
 const port = 3000;
@@ -31,6 +33,20 @@ app.put('/dates/check_out/:id', (req, res) => {
   BookingDate.update({check_out: false, available: true}, {where: {check_out: true, listing_id: req.params.id}}).then(() => {
     BookingDate.update({check_out: true, available: false}, {where: {date: req.body.date, listing_id: req.params.id}}).then(() => res.status(200).send(results)).catch(err => res.status(404).send(err));
   });
+});
+// get by location
+app.get('/listings/search', (req, res) => {
+  let results = [];
+  Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.body.query + '%'}}}).then(assets => {
+    results.push(assets);
+    Listing.findAll({limit: 10, where: {city: {[Op.like]: '%' + req.body.query + '%'}}}).then(newAssets => {
+      results.push(newAssets.slice(0, 10 - results.length));
+      Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.body.query + '%'}}}).then(titleAssets => {
+        results.push(titleAssets.slice(0, 10 - results.length));
+        res.status(200).send(results[0]);
+      }).catch(err => res.status(404).send(err));
+    }).catch(err => res.status(404).send(err));
+  }).catch(err => res.status(404).send(err));
 });
 
 app.get('/listings/:id', (req, res) => {

@@ -4,7 +4,7 @@ import SearchBar from './search-bar.jsx';
 import CheckInInput from './check-in-input.jsx';
 import CheckOutInput from './check-out-input.jsx';
 import SearchButton from './search-button.jsx';
-import {CalendarDisplay} from './calendar.jsx';
+import CalendarDisplay from './calendar-display.jsx';
 
 class SearchForm extends React.Component {
   constructor() {

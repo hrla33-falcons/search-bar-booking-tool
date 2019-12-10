@@ -134,6 +134,8 @@ body
   font-weight: bolder
 
 .al-search-button
+  position: relative
+  top: -10px
   background-color: white
   color: $primary-color
   border-radius: 30px
@@ -156,12 +158,12 @@ body
   margin-top: 10px
 
 .al-input-bar
-  padding: 17.5px 0
+  padding: 25px 0 10px
   line-height: 17.5px
   border-radius: 5px
   margin-bottom: 17px
   font-size: 15px
-  text-indent: 17.5px
+  text-indent: 15px
 
 .al-form-input-label
   color: gray
@@ -394,6 +396,11 @@ body
 .al-booking-tool
   width: 400px
   height: 490px
+  border: 1px solid lightgray
+
+.al-booking-tool-total
+  width: 400px
+  height: 545px
   border: 1px solid lightgray
 
 .al-booking-header-container
@@ -1450,3 +1457,126 @@ body
   border-radius: 5px
   background-color: $gray-color
   cursor: pointer
+
+.al-booking-total-container
+  display: block
+  position: relative
+  top: -107.5px
+
+.al-booking-total
+  width: 360px
+  margin-left: 20px
+  height: 55px
+  text-align: left
+
+.al-booking-total-top-container
+  display: block
+
+.al-booking-total-top-container
+  display: block
+
+.al-booking-total-total-container
+  display: inline-block
+  margin-right: 270px
+
+.al-booking-total-amount-container
+  display: inline-block
+
+.al-booking-details-container
+  display: inline-block
+  margin-right: 148px
+
+.al-booking-detailed-view-container
+  display: inline-block
+
+.al-booking-total-total-text
+  font-family: $bold-text
+  font-weight: bolder
+  font-size: 15px
+
+.al-booking-details-text
+  font-family: $bold-text
+  font-size: 13px
+  color: gray
+
+.al-booking-detailed-view-container
+  font-family: $bold-text
+  font-size: 13px
+  color: $primary-color
+  cursor: pointer
+
+.al-booking-detailed-view-container:hover
+  text-decoration: underline
+
+.al-loading-dots
+  display: block
+
+.al-main-loading-dots
+  display: block
+
+.al-main-dot
+  display: inline-block
+  background-color: $primary-color
+  width: 12px
+  height: 12px
+  border-radius: 6px
+  margin-right: 5px
+  margin-left: 5px
+
+.al-dot
+  display: inline-block
+  background-color: $primary-color
+  width: 8px
+  height: 8px
+  border-radius: 4px
+    margin-right: 3px
+  margin-left: 3px
+
+@keyframes al-blink
+  0%
+    opacity: .05
+
+  20%
+    opacity: 1
+
+  60%
+    opacity: 0.4
+
+  100%
+    opacity: .2
+
+.al-saving div
+  animation-name: al-blink
+  animation-duration: 1.4s
+  animation-iteration-count: infinite
+  animation-fill-mode: both
+  animation-delay: .8s
+
+.al-saving div:nth-child(2)
+  animation-delay: .6s
+
+.al-saving div:nth-child(3)
+  animation-delay: .4s
+
+.al-saving div:nth-child(4)
+  animation-delay: .2s
+
+.al-main-loading-dots-container
+  width: 100px
+  position: relative
+  top: 15px
+  left: 135px
+
+.al-loading-dots-container
+  position: relative
+  top: 10px
+  left: 175px
+
+.al-dates-input-check-in-date
+  font-family: $bold-text
+  color: $primary-color
+
+.al-dates-input-check-in-date-container
+  display: inline-block
+  position: relative
+  left: 15px

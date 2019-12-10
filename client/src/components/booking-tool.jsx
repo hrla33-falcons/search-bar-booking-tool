@@ -8,7 +8,10 @@ import DatesInput from './dates-input.jsx';
 import GuestsInput from './guests-input.jsx';
 import BookingSubmitForm from './booking-submit-form.jsx';
 import OwnerInfo from './owner-info.jsx';
-import {CalendarDisplayBooking} from './calendar.jsx';
+import CalendarDisplayBooking from './calendar-display-booking.jsx';
+import BookingTotal from './booking-total.jsx';
+import { connect } from 'react-redux';
+import {selectValid} from '../redux/booking/booking.selectors.js';
 
 class BookingTool extends React.Component {
   constructor(props) {
@@ -17,7 +20,11 @@ class BookingTool extends React.Component {
       check_in: '',
       check_out: '',
       guests: false,
-      calendar: false
+      calendar: false,
+      total: true,
+      header_loading: false,
+      total_loading: false,
+      valid_dates: false
     };
     this.handleCheckInSelect = this.handleCheckInSelect.bind(this);
     this.handleCheckOutSelect = this.handleCheckOutSelect.bind(this);
@@ -25,6 +32,11 @@ class BookingTool extends React.Component {
     this.handleCloseGuestsForm = this.handleCloseGuestsForm.bind(this);
     this.openCalendar = this.openCalendar.bind(this);
     this.closeCalendar = this.closeCalendar.bind(this);
+    this.handleTotal = this.handleTotal.bind(this);
+  }
+
+  handleTotal(e) {
+    this.setState({total: !this.state.total});
   }
 
   handleCheckInSelect(e) {
@@ -56,10 +68,11 @@ class BookingTool extends React.Component {
   }
 
   render() {
+    let style = this.state.total ? 'al-booking-tool-total' : 'al-booking-tool';
     return (
-      <div className='al-booking-tool'>
+      <div className={style}>
         <div className='al-booking-header-container'>
-          <BookingHeader />
+          <BookingHeader header_loading={this.state.header_loading}/>
         </div>
         <div className='al-booking-reviews-container'>
           <BookingReviews />
@@ -68,13 +81,25 @@ class BookingTool extends React.Component {
           <BookingRating/>
         </div>
         <div className='al-valid-dates-display-container'>
-          <ValidDatesDisplay />
+          <ValidDatesDisplay valid_dates={this.state.valid_dates}/>
         </div>
         <div className='al-dates-input-container'>
           <DatesInput openCalendar={this.openCalendar} handleCheckInSelect={this.handleCheckInSelect} handleCheckOutSelect={this.handleCheckOutSelect} check_in={this.state.check_in} check_out={this.state.check_out}/>
         </div>
         <div className='al-guests-input-container'>
           <GuestsInput guests={this.state.guests} handleGuestsForm={this.handleGuestsForm} handleCloseGuestsForm={this.handleCloseGuestsForm}/>
+        </div>
+        <div className='al-booking-total-container'>
+        {
+          this.props.selectValid ?
+          (
+            <BookingTotal total_loading={this.state.total_loading}/>
+          )
+          :
+          (
+            null
+          )
+        }
         </div>
         <div className='al-booking-submit-form-container'>
           <BookingSubmitForm />
@@ -99,4 +124,10 @@ class BookingTool extends React.Component {
   }
 }
 
-export default BookingTool;
+const mapStateToProps = (state) => {
+  return ({
+      selectValid: selectValid(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(BookingTool);

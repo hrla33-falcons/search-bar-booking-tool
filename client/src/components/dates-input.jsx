@@ -1,5 +1,7 @@
 // jshint esversion:6
 import React from 'react';
+import { connect } from 'react-redux';
+import { selectCheckInDate, selectCheckOutDate } from '../redux/booking/booking.selectors.js';
 
 class DatesInput extends React.Component {
   constructor(props) {
@@ -26,22 +28,23 @@ class DatesInput extends React.Component {
   }
 
   render() {
+
     return (
       <div className='al-dates-input'>
         <div className='al-dates-input-check-in-container' onClick={this.handleClick1}>
           <div className='al-dates-input-label-container'>
-            <span className={`${this.state.selected1 ? 'al-guests-input-label-text-top' : 'al-guests-input-label-text'}`}>Check In</span>
+            <span className={`${this.props.selectCheckInDate ? 'al-guests-input-label-text-top' : 'al-guests-input-label-text'}`}>Check In</span>
           </div>
           <div className='al-dates-input-check-in-date-container'>
-            <span className='al-dates-input-check-in-date'>{this.state.check_in}</span>
+            <span className='al-dates-input-check-in-date'>{this.props.selectCheckInDate}</span>
           </div>
         </div>
         <div className='al-dates-input-check-out-container' onClick={this.props.openCalendar}>
           <div className='al-dates-input-label-container'>
-            <span className={`${this.state.selected1 ? 'al-guests-input-label-text-top' : 'al-guests-input-label-text'}`}>Check Out</span>
+            <span className={`${this.props.selectCheckOutDate ? 'al-guests-input-label-text-top' : 'al-guests-input-label-text'}`}>Check Out</span>
           </div>
           <div className='al-dates-input-check-in-date-container'>
-            <span className='al-dates-input-check-in-date'>{this.state.check_out}</span>
+            <span className='al-dates-input-check-in-date'>{this.props.selectCheckOutDate}</span>
           </div>
         </div>
       </div>
@@ -49,4 +52,11 @@ class DatesInput extends React.Component {
   }
 };
 
-export default DatesInput;
+const mapStateToProps = (state) => {
+  return ({
+      selectCheckInDate: selectCheckInDate(state),
+      selectCheckOutDate: selectCheckOutDate(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(DatesInput);
