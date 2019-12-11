@@ -50,7 +50,10 @@ app.get('/listings/search', (req, res) => {
 });
 
 app.get('/listings/:id', (req, res) => {
-  Listing.findAll({where: {id: req.params.id}}).then(results => res.status(200).send(results)).catch(err => res.status(404).send(err));
+  Listing.findAll({where: {id: req.params.id}}).then(results => {
+    console.log(results);
+    res.status(200).send(results);
+  }).catch(err => res.status(404).send(err));
 });
 
 app.get('/listings/search/:id', (req, res) => {

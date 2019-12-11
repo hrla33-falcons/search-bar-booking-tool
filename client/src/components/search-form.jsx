@@ -6,8 +6,9 @@ import CheckOutInput from './check-out-input.jsx';
 import SearchButton from './search-button.jsx';
 import CalendarDisplay from './calendar-display.jsx';
 import { connect } from 'react-redux';
-import {setSearchTerm} from '../redux/booking/booking.action.js';
+import {setSearchTerm, setRate, setTitle, setCleaningFee, setSleepCapacity, setReviewNumber, setReviewOverview, setRating, setOwner, setUSState, setCity, setPic, setCheckInDate, setCheckOutDate, makeInvalid } from '../redux/booking/booking.action.js';
 import axios from 'axios';
+import SearchDropdown from './search-dropdown.jsx';
 
 class SearchForm extends React.Component {
   constructor() {
@@ -25,6 +26,7 @@ class SearchForm extends React.Component {
     this.openCalendar = this.openCalendar.bind(this);
     this.closeCalendar = this.closeCalendar.bind(this);
     this.searchListings = this.searchListings.bind(this);
+    this.selectSearchResult = this.selectSearchResult.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +49,31 @@ class SearchForm extends React.Component {
       .then(data => this.setState({searchlistings: data}))
       .catch(err => console.log(err));
     }
+  }
+
+  selectSearchResult(id) {
+    this.setState({term: '', searchlistings: []}, () => {
+      axios.get(`/listings/${id}`)
+      .then(results => results.data[0])
+      .then(data => {
+        this.props.setTitle(data.title);
+        this.props.setCleaningFee(data.cleaning_fee);
+        this.props.setSleepCapacity(data.sleep_capacity);
+        this.props.setReviewNumber(data.review_number);
+        this.props.setReviewOverview(data.review_overview);
+        this.props.setOwner(data.owner);
+        this.props.setRating(data.rating);
+        this.props.setUSState(data.state);
+        this.props.setCity(data.city);
+        this.props.setPic(data.pic);
+      }).then(() => axios.get(`/dates/${id}`)).then(datesData => {
+        this.props.setCheckInDate('');
+        this.props.setCheckOutDate('');
+        this.props.makeInvalid();
+        this.props.setRate(datesData.data[0].rate);
+
+      }).catch(err => console.log(err));
+    });
   }
 
   handleChange(e) {
@@ -80,7 +107,9 @@ class SearchForm extends React.Component {
             )
           }
         </div>
-        <div className='al-search-dropdown-container'></div>
+        <div className='al-search-dropdown-container'>
+          <SearchDropdown selectSearchResult={this.selectSearchResult} searchlistings={this.state.searchlistings}/>
+        </div>
       </div>
     );
   }
@@ -90,7 +119,21 @@ class SearchForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    setSearchTerm: (term) => dispatch(setSearchTerm(term))
+    setSearchTerm: (term) => dispatch(setSearchTerm(term)),
+    setRate: (rate) => dispatch(setRate(rate)),
+    setTitle: (title) => dispatch(setTitle(title)),
+    setCleaningFee: (cleaningFee) => dispatch(setCleaningFee(cleaningFee)),
+    setSleepCapacity: (sleepCapacity) => dispatch(setSleepCapacity(sleepCapacity)),
+    setReviewNumber: (reviewNumber) => dispatch(setReviewNumber(reviewNumber)),
+    setReviewOverview: (reviewOverview) => dispatch(setReviewOverview(reviewOverview)),
+    setRating: (rating) => dispatch(setRating(rating)),
+    setOwner: (owner) => dispatch(setOwner(owner)),
+    setUSState: (USState) => dispatch(setUSState(USState)),
+    setCity: (city) => dispatch(setCity(city)),
+    setPic: (pic) => dispatch(setPic(pic)),
+    setCheckInDate: (date) => dispatch(setCheckInDate(date)),
+    setCheckOutDate: (date) => dispatch(setCheckOutDate(date)),
+    makeInvalid: () => dispatch(makeInvalid())
    });
 }
 
