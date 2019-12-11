@@ -13,6 +13,16 @@ export const selectCheckOutDate = createSelector(
   booking => booking.check_out
 );
 
+export const selectCheckInDate1 = createSelector(
+  [selectBooking],
+  booking => booking.check_in1
+);
+
+export const selectCheckOutDate1 = createSelector(
+  [selectBooking],
+  booking => booking.check_out1
+);
+
 export const selectRate = createSelector(
   [selectBooking],
   booking => booking.rate
@@ -68,6 +78,16 @@ export const selectOwner = createSelector(
   booking => booking.owner
 );
 
+export const selectCalendar = createSelector(
+  [selectBooking],
+  booking => booking.calendar
+);
+
+export const selectGuestsForm = createSelector(
+  [selectBooking],
+  booking => booking.guestsform
+);
+
 export const selectCleaningFee = createSelector(
   [selectBooking],
   booking => booking.cleaning_fee
@@ -91,4 +111,9 @@ export const selectPic = createSelector(
 export const selectLoading = createSelector(
   [selectBooking],
   booking => booking.loading
+);
+
+export const selectDays = createSelector(
+  [selectBooking],
+  booking => booking.days
 );

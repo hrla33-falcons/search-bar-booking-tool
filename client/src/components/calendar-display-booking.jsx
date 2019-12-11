@@ -6,8 +6,8 @@ import CheckIcon from '../../dist/icons/tick.svg';
 import MinusIcon from '../../dist/icons/negative.svg';
 import InfoIcon from '../../dist/icons/Info_Simple.svg';
 import { connect } from 'react-redux';
-import {setCheckInDate, setCheckOutDate, startLoading, stopLoading, makeValid, makeInvalid} from '../redux/booking/booking.action.js';
-import { selectCheckInDate, selectCheckOutDate} from '../redux/booking/booking.selectors.js';
+import {setCheckInDate, setCheckOutDate, setTotal, startLoading, stopLoading, makeValid, makeInvalid, setDays, toggleCalendar} from '../redux/booking/booking.action.js';
+import { selectCheckInDate, selectCheckOutDate, selectRate, selectCleaningFee, selectFee, selectGuests} from '../redux/booking/booking.selectors.js';
 
 class CalendarDisplayBooking extends React.Component {
   constructor() {
@@ -41,6 +41,24 @@ class CalendarDisplayBooking extends React.Component {
     this.handleCheckInClick2 = this.handleCheckInClick2.bind(this);
     this.selectSecondMonth = this.selectSecondMonth.bind(this);
     this.clearDates = this.clearDates.bind(this);
+    this.endLoading = this.endLoading.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.closeCalendarForm = this.closeCalendarForm.bind(this);
+  }
+
+  closeCalendarForm(e) {
+    this.props.toggleCalendar();
+  }
+
+  calculateTotal() {
+    let date1 = new Date(this.props.selectCheckInDate);
+    let date2 = new Date(this.props.selectCheckOutDate);
+    let Difference_In_Time = date2.getTime() - date1.getTime();
+    let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    this.props.setDays(Difference_In_Days);
+    let subTotal = Difference_In_Days * this.props.selectRate + this.props.selectFee + this.props.selectCleaningFee * Math.pow(this.props.selectGuests, 0.5);
+    let total = subTotal * 1.1;
+    this.props.setTotal(total);
   }
 
   clearDates(e) {
@@ -49,6 +67,10 @@ class CalendarDisplayBooking extends React.Component {
       this.props.setCheckOutDate(this.state.check_out);
       this.props.makeInvalid();
     });
+  }
+
+  endLoading() {
+    this.props.stopLoading();
   }
 
   handleCheckInClick(e) {
@@ -81,6 +103,11 @@ class CalendarDisplayBooking extends React.Component {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => this.setState({valid: true, error: false, message: true}, () => {
             this.props.setCheckOutDate(this.state.check_out);
             this.props.makeValid();
+            this.props.startLoading();
+            setTimeout(() => {
+              this.calculateTotal();
+              this.endLoading();
+            }, 3000);
           })));
         }
       } else {
@@ -94,6 +121,12 @@ class CalendarDisplayBooking extends React.Component {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => this.setState({valid: true, error: false, message: true}, () => {
             this.props.setCheckOutDate(this.state.check_out);
             this.props.makeValid();
+            this.props.startLoading();
+
+            setTimeout(() => {
+              this.calculateTotal();
+              this.endLoading();
+            }, 3000);
           })));
         }
       }
@@ -161,6 +194,11 @@ class CalendarDisplayBooking extends React.Component {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => this.setState({valid: true, error: false, message: true}, () => {
             this.props.setCheckOutDate(this.state.check_out);
             this.props.makeValid();
+            this.props.startLoading();
+            setTimeout(() => {
+              this.calculateTotal();
+              this.endLoading();
+            }, 3000);
           })));
         }
       } else {
@@ -174,6 +212,11 @@ class CalendarDisplayBooking extends React.Component {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => this.setState({valid: true, error: false, message: true}, () => {
             this.props.setCheckOutDate(this.state.check_out);
             this.props.makeValid();
+            this.props.startLoading();
+            setTimeout(() => {
+              this.calculateTotal();
+              this.endLoading();
+            }, 3000);
           })));
         }
       }
@@ -298,7 +341,7 @@ class CalendarDisplayBooking extends React.Component {
           <span className='al-calendar-clear-dates-text'>Clear dates
           </span>
         </div>
-        <div className={`${this.state.message ? 'al-calendar-close-container-large' : 'al-calendar-close-container-flat'}`} onClick={this.props.closeCalendar}>
+        <div className={`${this.state.message ? 'al-calendar-close-container-large' : 'al-calendar-close-container-flat'}`} onClick={this.closeCalendarForm}>
           <div className='al-calendar-close-text-container-booking'>
             <span className='al-calendar-close-text'>Close</span>
           </div>
@@ -315,14 +358,21 @@ const mapDispatchToProps = (dispatch) => {
       makeValid: () => dispatch(makeValid()),
       makeInvalid: () => dispatch(makeInvalid()),
       startLoading: () => dispatch(startLoading()),
-      stopLoading: () => dispatch(stopLoading())
+      stopLoading: () => dispatch(stopLoading()),
+      setTotal: (total) => dispatch(setTotal(total)),
+      setDays: (days) => dispatch(setDays(days)),
+      toggleCalendar: () => dispatch(toggleCalendar())
    });
 }
 
 const mapStateToProps = (state) => {
   return ({
       selectCheckInDate: selectCheckInDate(state),
-      selectCheckOutDate: selectCheckOutDate(state)
+      selectCheckOutDate: selectCheckOutDate(state),
+      selectRate: selectRate(state),
+      selectFee: selectFee(state),
+      selectCleaningFee: selectCleaningFee(state),
+      selectGuests: selectGuests(state)
   });
 };
 

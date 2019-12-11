@@ -3,9 +3,11 @@
 const INITIAL_STATE = {
   check_in: '',
   check_out: '',
-  rate: '0.00',
-  total: '0.00',
-  fee: '50.00',
+  check_in1: '',
+  check_out1: '',
+  rate: 0.00,
+  total: 0.00,
+  fee: 50.00,
   valid: false,
   title: '',
   sleep_capacity: 1,
@@ -13,25 +15,53 @@ const INITIAL_STATE = {
   rating: 0,
   review_number: 0,
   owner: '',
-  cleaning_fee: '0.00',
+  cleaning_fee: 0.00,
   us_state: '',
   city: '',
   pic: '',
   loading: false,
-  guests: 1
+  guests: 1,
+  days: 0,
+  guestsform: false,
+  calendar: false
 };
 
 const BookingReducer = (state=INITIAL_STATE, action) => {
   switch (action.type) {
+    case 'TOGGLE_GUESTS_FORM':
+      return ({
+        ...state,
+        guestsform: !state.guestsform
+      });
+    case 'TOGGLE_CALENDAR':
+      return ({
+        ...state,
+        calendar: !state.calendar
+      });
     case 'SET_CHECK_IN_DATE':
       return ({
         ...state,
         check_in: action.payload
       });
+    case 'SET_DAYS':
+      return ({
+        ...state,
+        days: action.payload
+      });
     case 'SET_CHECK_OUT_DATE':
       return ({
         ...state,
         check_out: action.payload
+      });
+    case 'SET_CHECK_IN_DATE1':
+      return ({
+        ...state,
+        check_in1: action.payload
+      });
+    case 'SET_CHECK_OUT_DATE1':
+      return ({
+        ...state,
+        check_out1: action.payload
       });
     case 'SET_RATE':
       return ({

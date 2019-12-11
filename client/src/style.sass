@@ -1009,7 +1009,7 @@ body
 
 .al-guests-form
   position: relative
-  z-index: 4
+  z-index: 11
   width: 400px
   height: 310px
   background-color: white
@@ -1161,6 +1161,8 @@ body
   border: 1px solid lightgray
 
 .al-calendar-display-large
+  position: relative
+  z-index: 10
   background-color: white
   width: 720px
   height: 525px
@@ -1476,11 +1478,13 @@ body
   display: block
 
 .al-booking-total-total-container
-  display: inline-block
-  margin-right: 270px
+  display: inline
+  margin-right: 150px
 
 .al-booking-total-amount-container
-  display: inline-block
+  max-width: 500px
+  float: right
+  display: inline
 
 .al-booking-details-container
   display: inline-block
@@ -1490,6 +1494,7 @@ body
   display: inline-block
 
 .al-booking-total-total-text
+  display: inline-block
   font-family: $bold-text
   font-weight: bolder
   font-size: 15px
@@ -1570,7 +1575,7 @@ body
 .al-loading-dots-container
   position: relative
   top: 10px
-  left: 175px
+  left: 165px
 
 .al-dates-input-check-in-date
   font-family: $bold-text
@@ -1580,3 +1585,222 @@ body
   display: inline-block
   position: relative
   left: 15px
+
+.al-view-details-form-container
+  position: absolute
+  left: -820px
+  top: -365px
+
+.al-view-details-form
+  width: 600px
+  height: 810px
+  background-color: white
+  position: relative
+  border: 1px solid gray
+  border-radius: 5px
+  z-index: 4
+
+.al-view-details-form-title-container
+  display: inline-block
+  position: relative
+  top: 17.5px
+  left: 32.5px
+
+.al-gray
+  color: gray
+  font-size: 21px
+
+.al-view-details-form-title-text
+  font-family: $bold-text
+  font-weight: bolder
+
+.al-view-details-form-title-text
+  font-family: $bold-text
+  font-weight: bolder
+  font-size: 18px
+
+.al-view-details-form-close-button-container
+  display: inline-block
+  position: relative
+  top: 17.5px
+  left: 415px
+  cursor: pointer
+
+.al-view-details-form-valid-dates-container
+  display: block
+  position: relative
+  top: 50px
+  left: 37.5px
+  margin-bottom: 10px
+
+.al-view-details-form-icon-container
+  display: inline-block
+  margin-right: 10px
+
+.al-view-details-form-icon
+  width: 17.5px
+
+.al-view-details-form-valid-dates-text-container
+  display: inline-block
+
+.al-view-details-form-dates-container
+  cursor: pointer
+  display: block
+  position: relative
+  top: 50px
+  left: 32.5px
+
+.al-view-details-form-check-in-container
+  width: 265px
+  height: 55px
+  border: 1px solid gray
+  border-top-left-radius: 5px
+  display: inline-block
+
+.al-view-details-form-check-out-container
+  width: 265px
+  height: 55px
+  border: 1px solid gray
+  border-top-right-radius: 2.5px
+  display: inline-block
+
+.al-view-details-form-check-in-label-container
+  position: relative
+  top: 7px
+  left: 15px
+
+.al-view-details-form-title-text-close
+  font-family: $bold-text
+
+.al-view-details-form-check-in-label-text
+  color: gray
+  font-family: $bold-text
+  font-size: 12px
+
+.al-view-details-form-check-in-date-container
+  position: relative
+  left: 15px
+  top: 5px
+
+.al-view-details-form-valid-dates-text
+  font-family: $bold-text
+  color: gray
+  font-size: 15px
+
+.al-view-details-form-guests-container
+  position: relative
+  top: 50px
+  left: 32.5px
+  display: block
+  width: 532px
+  height: 55px
+  border-bottom-right-radius: 2.5px
+  border-bottom-left-radius: 2.5px
+  border: 1px solid gray
+  cursor: pointer
+
+.al-view-details-form-check-in-date-text
+  color: $primary-color
+  font-family: $bold-text
+
+.al-view-details-form-fee-breakdown-container
+  display: block
+  margin-top: 6px
+  margin-bottom: 6px
+  position: relative
+  left: 32.5px
+  width: 532px
+
+.al-view-details-form-field-container
+  display: inline
+  margin-right: 55px
+
+.al-view-details-form-cost-container
+  max-width: 400px
+  float: right
+  display: inline
+
+.al-view-details-form-breakdown-text
+  font-family: $bold-text
+  color: gray
+
+.al-view-details-form-fee-container
+  display: block
+  margin-top: 70px
+
+.al-view-details-form-breakdown-line-container
+  display: inline-block
+
+.al-gap
+  margin-right: 10px
+
+.al-clickable
+  cursor: pointer
+
+.al-top-dotted-line
+  position: relative
+  top: 15px
+  left: 0px
+
+.al-top-dotted-line2
+  position: relative
+  top: 25px
+  left: 0px
+
+.al-dotted-line
+  width: 530px
+  border-top: dashed 1px lightgray
+
+.al-view-details-form-fee-container-second
+  display: block
+  margin-top: 35px
+
+.al-view-details-form-fee-container-third
+  display: block
+  margin-top: 35px
+  width: 530px
+  margin-left: 32.5px
+
+.al-view-details-form-cost-container1
+  float: right
+
+.al-view-details-form-footer-first-line-container
+  display: block
+  margin-bottom: 15px
+
+.al-view-details-form-footer-second-line-container
+  display: block
+
+.al-view-details-form-fee-container-fourth
+  display: block
+  margin-top: 35px
+  width: 530px
+  margin-left: 32.5px
+  text-align: center
+
+.al-view-details-form-bottom-button-container
+  display: inline-block
+  position: relative
+  top: 15px
+
+.al-view-details-form-bottom-button
+  white-space: nowrap
+  padding: 12.5px 200px
+  background-color: $primary-color
+  border-radius: 25px
+  -webkit-transition: background-color .3s linear
+  -ms-transition: background-color .3s linear
+  transition: background-color .3s linear
+  cursor: pointer
+
+.al-view-details-form-bottom-button:hover
+  background-color: darken($primary-color, 10%)
+
+.al-view-details-form-bottom-button:focus
+  outline: 0
+
+.al-view-details-form-bottom-button-text
+  font-family: $bold-text
+  color: white
+  font-weight: bolder
+  font-size: 15px

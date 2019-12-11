@@ -11,7 +11,8 @@ import OwnerInfo from './owner-info.jsx';
 import CalendarDisplayBooking from './calendar-display-booking.jsx';
 import BookingTotal from './booking-total.jsx';
 import { connect } from 'react-redux';
-import {selectValid} from '../redux/booking/booking.selectors.js';
+import {selectValid, selectCalendar} from '../redux/booking/booking.selectors.js';
+import {toggleCalendar} from '../redux/booking/booking.action.js';
 
 class BookingTool extends React.Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class BookingTool extends React.Component {
         </div>
         <div className='al-booking-calendar-container'>
         {
-          this.state.calendar ?
+          this.props.selectCalendar ?
           (
             <CalendarDisplayBooking closeCalendar={this.closeCalendar}/>
           )
@@ -126,8 +127,15 @@ class BookingTool extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-      selectValid: selectValid(state)
+      selectValid: selectValid(state),
+      selectCalendar: selectCalendar(state)
   });
 };
 
-export default connect(mapStateToProps, null)(BookingTool);
+const mapDispatchToProps = (dispatch) => {
+  return ({
+      toggleCalendar: () => dispatch(toggleCalendar())
+   });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingTool);

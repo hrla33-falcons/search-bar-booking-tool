@@ -14,6 +14,21 @@ export const setCheckOutDate = (date) => {
   });
 };
 
+
+export const setCheckInDate1 = (date) => {
+  return ({
+    type: 'SET_CHECK_IN_DATE1',
+    payload: date
+  });
+};
+
+export const setCheckOutDate1 = (date) => {
+  return ({
+    type: 'SET_CHECK_OUT_DATE1',
+    payload: date
+  });
+};
+
 export const setRate = (rate) => {
   return ({
     type: 'SET_RATE',
@@ -136,3 +151,21 @@ export const setGuests = (guests) => {
   });
 };
 
+export const setDays = (days) => {
+  return ({
+    type: 'SET_DAYS',
+    payload: days
+  });
+};
+
+export const toggleGuestsForm = () => {
+  return ({
+    type: 'TOGGLE_GUESTS_FORM'
+  });
+};
+
+export const toggleCalendar = () => {
+  return ({
+    type: 'TOGGLE_CALENDAR'
+  });
+};

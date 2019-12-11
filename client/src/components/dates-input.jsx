@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectCheckInDate, selectCheckOutDate } from '../redux/booking/booking.selectors.js';
+import { toggleCalendar } from '../redux/booking/booking.action.js';
 
 class DatesInput extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class DatesInput extends React.Component {
   }
 
   handleClick1(e) {
-    this.setState({selected1: true}, () => this.props.openCalendar());
+    this.setState({selected1: true}, () => this.props.toggleCalendar());
   }
 
   clearInputs(e) {
@@ -59,4 +60,10 @@ const mapStateToProps = (state) => {
   });
 };
 
-export default connect(mapStateToProps, null)(DatesInput);
+const mapDispatchToProps = (dispatch) => {
+  return ({
+      toggleCalendar: () => dispatch(toggleCalendar())
+   });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatesInput);

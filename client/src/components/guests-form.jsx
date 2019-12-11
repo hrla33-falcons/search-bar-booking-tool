@@ -3,8 +3,8 @@ import React from 'react';
 import SVG from 'react-inlinesvg';
 import PeopleIcon from '../../dist/icons/people.svg';
 import { connect } from 'react-redux';
-import { selectSleepCapacity } from '../redux/booking/booking.selectors.js';
-import { setGuests } from '../redux/booking/booking.action.js';
+import {toggleGuestsForm, setGuests, setCheckInDate, setCheckOutDate, setTotal, startLoading, stopLoading, makeValid, makeInvalid} from '../redux/booking/booking.action.js';
+import { selectSleepCapacity, selectCheckInDate, selectCheckOutDate, selectRate, selectCleaningFee, selectFee, selectGuests} from '../redux/booking/booking.selectors.js';
 
 class GuestsForm extends React.Component {
   constructor(props) {
@@ -18,35 +18,67 @@ class GuestsForm extends React.Component {
     this.decrementAdults = this.decrementAdults.bind(this);
     this.decrementChildren = this.decrementChildren.bind(this);
     this.handleApply = this.handleApply.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.setLoading = this.setLoading.bind(this);
+  }
+
+  calculateTotal() {
+    let date1 = new Date(this.props.selectCheckInDate);
+    let date2 = new Date(this.props.selectCheckOutDate);
+    let Difference_In_Time = date2.getTime() - date1.getTime();
+    let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    console.log(Difference_In_Days);
+    let subTotal = Difference_In_Days * this.props.selectRate + this.props.selectFee + this.props.selectCleaningFee * Math.pow(this.state.adults + this.state.children, 0.5);
+    let total = subTotal * 1.1;
+    this.props.setTotal(total);
+    this.props.stopLoading();
+  }
+
+  setLoading() {
+    if (this.props.selectCheckInDate && this.props.selectCheckOutDate) {
+      this.props.startLoading();
+      setTimeout(() => {
+        this.calculateTotal();
+      }, 3000);
+    }
   }
 
   incrementAdults() {
     if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
-      this.setState({adults: this.state.adults + 1}, () => this.props.setGuests(this.state.children + this.state.adults));
+      this.setState({adults: this.state.adults + 1}, () => {
+
+      });
     }
   }
 
   incrementChildren() {
     if (this.state.children + this.state.adults < this.props.selectSleepCapacity) {
-      this.setState({children: this.state.children + 1}, () => this.props.setGuests(this.state.children + this.state.adults));
+      this.setState({children: this.state.children + 1}, () => {
+
+      });
     }
   }
 
   decrementAdults() {
     if (this.state.adults > 1) {
-      this.setState({adults: this.state.adults - 1}, () => this.props.setGuests(this.state.children + this.state.adults));
+      this.setState({adults: this.state.adults - 1}, () => {
+
+      });
     }
   }
 
   decrementChildren() {
     if (this.state.children > 0) {
-      this.setState({children: this.state.children - 1}, () => this.props.setGuests(this.state.children + this.state.adults));
+      this.setState({children: this.state.children - 1}, () => {
+
+      });
     }
   }
 
   handleApply() {
-    this.props.getGuests(this.state.adults + this.state.children);
-    this.props.handleCloseGuestsForm();
+    this.props.setGuests(this.state.children + this.state.adults);
+    this.props.toggleGuestsForm();
+    this.setLoading();
   }
 
   componentDidMount() {
@@ -108,16 +140,30 @@ class GuestsForm extends React.Component {
   }
 };
 
-const mapStateToProps = (state) => {
-  return ({
-      selectSleepCapacity: selectSleepCapacity(state)
-  });
-};
-
 const mapDispatchToProps = (dispatch) => {
   return ({
-      setGuests: (guests) => dispatch(setGuests(guests))
+      setGuests: (guests) => dispatch(setGuests(guests)),
+      setCheckInDate: (date) => dispatch(setCheckInDate(date)),
+      setCheckOutDate: (date) => dispatch(setCheckOutDate(date)),
+      makeValid: () => dispatch(makeValid()),
+      makeInvalid: () => dispatch(makeInvalid()),
+      startLoading: () => dispatch(startLoading()),
+      stopLoading: () => dispatch(stopLoading()),
+      setTotal: (total) => dispatch(setTotal(total)),
+      toggleGuestsForm: () => dispatch(toggleGuestsForm())
    });
 }
+
+const mapStateToProps = (state) => {
+  return ({
+      selectSleepCapacity: selectSleepCapacity(state),
+      selectCheckInDate: selectCheckInDate(state),
+      selectCheckOutDate: selectCheckOutDate(state),
+      selectRate: selectRate(state),
+      selectFee: selectFee(state),
+      selectCleaningFee: selectCleaningFee(state),
+      selectGuests: selectGuests(state)
+  });
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuestsForm);
