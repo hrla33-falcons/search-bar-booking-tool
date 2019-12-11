@@ -1,9 +1,9 @@
 // jshint esversion:6
 import React from 'react';
 
-const SearchButton = () => {
+const SearchButton = (props) => {
   return (
-    <button className='al-search-button'><span className='al-search-button-text'>Search</span></button>
+    <button onClick={props.handleSubmit} className='al-search-button'><span className='al-search-button-text'>Search</span></button>
   );
 };
 

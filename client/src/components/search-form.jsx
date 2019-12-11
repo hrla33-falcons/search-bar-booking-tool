@@ -6,7 +6,8 @@ import CheckOutInput from './check-out-input.jsx';
 import SearchButton from './search-button.jsx';
 import CalendarDisplay from './calendar-display.jsx';
 import { connect } from 'react-redux';
-import {setSearchTerm, setRate, setTitle, setCleaningFee, setSleepCapacity, setReviewNumber, setReviewOverview, setRating, setOwner, setUSState, setCity, setPic, setCheckInDate, setCheckOutDate, makeInvalid } from '../redux/booking/booking.action.js';
+import {setSearchTerm, setRate, setTitle, setCleaningFee, setSleepCapacity, setReviewNumber, setReviewOverview, setRating, setOwner, setUSState, setCity, setPic, setCheckInDate1, setCheckOutDate1, makeInvalid } from '../redux/booking/booking.action.js';
+import {selectCheckInDate1, selectCheckOutDate1} from '../redux/booking/booking.selectors.js';
 import axios from 'axios';
 import SearchDropdown from './search-dropdown.jsx';
 
@@ -18,7 +19,19 @@ class SearchForm extends React.Component {
       check_in: '',
       check_out: '',
       calendar: false,
-      searchlistings: []
+      searchlistings: [],
+      title: '',
+      cleaningfee: 0,
+      sleepcapacity: 0,
+      reviewnumber: 0,
+      reviewoverview: '',
+      owner: '',
+      rating: 0,
+      usstate: '',
+      city: '',
+      pic: '',
+      rate: 0,
+      selected: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckInSelect = this.handleCheckInSelect.bind(this);
@@ -27,6 +40,7 @@ class SearchForm extends React.Component {
     this.closeCalendar = this.closeCalendar.bind(this);
     this.searchListings = this.searchListings.bind(this);
     this.selectSearchResult = this.selectSearchResult.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -56,24 +70,41 @@ class SearchForm extends React.Component {
       axios.get(`/listings/${id}`)
       .then(results => results.data[0])
       .then(data => {
-        this.props.setTitle(data.title);
-        this.props.setCleaningFee(data.cleaning_fee);
-        this.props.setSleepCapacity(data.sleep_capacity);
-        this.props.setReviewNumber(data.review_number);
-        this.props.setReviewOverview(data.review_overview);
-        this.props.setOwner(data.owner);
-        this.props.setRating(data.rating);
-        this.props.setUSState(data.state);
-        this.props.setCity(data.city);
-        this.props.setPic(data.pic);
+        this.setState({title: data.title}, () => this.setState({cleaningfee: data.cleaning_fee}, () => this.setState({sleepcapacity: data.sleep_capacity}, () => this.setState({reviewnumber: data.review_number}, () => this.setState({reviewoverview: data.review_overview}, () => this.setState({owner: data.owner}, this.setState({rating: data.rating}, () => this.setState({usstate: data.state}, () => this.setState({city: data.city}, () => this.setState({pic: data.pic}, () => null))))))))));
       }).then(() => axios.get(`/dates/${id}`)).then(datesData => {
-        this.props.setCheckInDate('');
-        this.props.setCheckOutDate('');
-        this.props.makeInvalid();
-        this.props.setRate(datesData.data[0].rate);
+        this.setState({rate: datesData.data[0].rate}, () => {
+          this.setState({selected: true});
+          if (!this.state.calendar) {
+            this.setState({calendar: true});
+          }
+        });
+        // this.props.setRate(datesData.data[0].rate);
 
       }).catch(err => console.log(err));
     });
+  }
+
+  handleSubmit(e) {
+    console.log('hi');
+    console.log(this.state.selected);
+    console.log(this.props.selectCheckInDate1);
+    console.log(this.props.selectCheckOutDate1);
+    if (this.state.selected && this.props.selectCheckInDate1 && this.props.selectCheckOutDate1) {
+      this.props.setTitle(this.state.title);
+      this.props.setCleaningFee(this.state.cleaningfee);
+      this.props.setSleepCapacity(this.state.sleepcapacity);
+      this.props.setReviewNumber(this.state.reviewnumber);
+      this.props.setReviewOverview(this.state.reviewoverview);
+      this.props.setOwner(this.state.owner);
+      this.props.setRating(this.state.rating);
+      this.props.setUSState(this.state.usstate);
+      this.props.setCity(this.state.city);
+      this.props.setPic(this.state.pic);
+      this.props.setRate(this.state.rate);
+      this.props.setCheckInDate1('');
+      this.props.setCheckOutDate1('');
+      this.props.makeInvalid();
+    }
   }
 
   handleChange(e) {
@@ -94,7 +125,7 @@ class SearchForm extends React.Component {
         <SearchBar handleChange={this.handleChange} term={this.state.term}/>
         <CheckInInput check_in={this.state.check_in} handleCheckInSelect={this.handleCheckInSelect} openCalendar={this.openCalendar}/>
         <CheckOutInput check_out={this.state.check_out} handleCheckOutSelect={this.handleCheckOutSelect} openCalendar={this.openCalendar}/>
-        <SearchButton />
+        <SearchButton handleSubmit={this.handleSubmit}/>
         <div className='al-search-form-calendar-container'>
           {
             this.state.calendar ?
@@ -131,15 +162,16 @@ const mapDispatchToProps = (dispatch) => {
     setUSState: (USState) => dispatch(setUSState(USState)),
     setCity: (city) => dispatch(setCity(city)),
     setPic: (pic) => dispatch(setPic(pic)),
-    setCheckInDate: (date) => dispatch(setCheckInDate(date)),
-    setCheckOutDate: (date) => dispatch(setCheckOutDate(date)),
+    setCheckInDate1: (date) => dispatch(setCheckInDate1(date)),
+    setCheckOutDate1: (date) => dispatch(setCheckOutDate1(date)),
     makeInvalid: () => dispatch(makeInvalid())
    });
 }
 
 const mapStateToProps = (state) => {
   return ({
-
+    selectCheckInDate1: selectCheckInDate1(state),
+    selectCheckOutDate1: selectCheckOutDate1(state)
   });
 };
 
