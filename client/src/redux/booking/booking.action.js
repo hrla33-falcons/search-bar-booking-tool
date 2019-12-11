@@ -169,3 +169,10 @@ export const toggleCalendar = () => {
     type: 'TOGGLE_CALENDAR'
   });
 };
+
+export const setSearchTerm = (e) => {
+  return ({
+    type: 'SET_SEARCH_TERM',
+    payload: e
+  });
+}

@@ -5,6 +5,8 @@ import FacebookIcon from '../../dist/icons/facebook.svg';
 import TwitterIcon from '../../dist/icons/twitter.svg';
 import PinterestIcon from '../../dist/icons/pinterest.svg';
 import LinkIcon from '../../dist/icons/link.svg';
+import { connect } from 'react-redux';
+import {selectPic, selectTitle} from '../redux/booking/booking.selectors.js';
 
 const SharedDropdown = (props) => {
   let link = './icons/sampleimage.jpg';
@@ -12,10 +14,10 @@ const SharedDropdown = (props) => {
     <div className='al-shared-dropdown'>
       <div className='al-shared-dropdown-header-container'>
         <div className='al-shared-dropdown-image-container'>
-          <img className='al-shared-dropdown-image' src={link}/>
+          <img className='al-shared-dropdown-image' src={props.selectPic}/>
         </div>
         <div className='al-shared-dropdown-header-text-container'>
-          <span className='al-shared-dropdown-header-text'>Beautiful 3,000 SF Castle in the Vineyards</span>
+          <span className='al-shared-dropdown-header-text'>{props.selectTitle}</span>
         </div>
         <div className='al-shared-dropdown-header-close-button-container'>
           <button onClick={props.handleCloseShared} className='al-shared-dropdown-header-close-button'>
@@ -63,4 +65,11 @@ const SharedDropdown = (props) => {
   );
 };
 
-export default SharedDropdown;
+const mapStateToProps = (state) => {
+  return ({
+      selectPic: selectPic(state),
+      selectTitle: selectTitle(state)
+  });
+};
+
+export default connect(mapStateToProps, null)(SharedDropdown);

@@ -8,6 +8,11 @@ export const selectCheckInDate = createSelector(
   booking => booking.check_in
 );
 
+export const selectSearchTerm = createSelector(
+  [selectBooking],
+  booking => booking.searchterm
+);
+
 export const selectCheckOutDate = createSelector(
   [selectBooking],
   booking => booking.check_out

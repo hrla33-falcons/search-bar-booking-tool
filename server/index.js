@@ -37,11 +37,11 @@ app.put('/dates/check_out/:id', (req, res) => {
 // get by location
 app.get('/listings/search', (req, res) => {
   let results = [];
-  Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.body.query + '%'}}}).then(assets => {
+  Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.query.query + '%'}}}).then(assets => {
     results.push(assets);
-    Listing.findAll({limit: 10, where: {city: {[Op.like]: '%' + req.body.query + '%'}}}).then(newAssets => {
+    Listing.findAll({limit: 10, where: {city: {[Op.like]: '%' + req.query.query + '%'}}}).then(newAssets => {
       results.push(newAssets.slice(0, 10 - results.length));
-      Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.body.query + '%'}}}).then(titleAssets => {
+      Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.query.query + '%'}}}).then(titleAssets => {
         results.push(titleAssets.slice(0, 10 - results.length));
         res.status(200).send(results[0]);
       }).catch(err => res.status(404).send(err));

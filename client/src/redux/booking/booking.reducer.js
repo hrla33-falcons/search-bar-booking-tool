@@ -23,11 +23,17 @@ const INITIAL_STATE = {
   guests: 1,
   days: 0,
   guestsform: false,
-  calendar: false
+  calendar: false,
+  searchterm: ''
 };
 
 const BookingReducer = (state=INITIAL_STATE, action) => {
   switch (action.type) {
+    case 'SET_SEARCH_TERM':
+      return ({
+        ...state,
+        searchterm: action.payload
+      });
     case 'TOGGLE_GUESTS_FORM':
       return ({
         ...state,
