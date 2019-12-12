@@ -23,16 +23,17 @@ const Listing = require('./models').Listing;
   generateBookingDates= (listing_id) => {
     let bookingDates = [];
     let date;
-    for (let i = 0; i < years.length; i++) {
-      for (let j = 0; j < datesInMonths.length; j++) {
-        for (let k = 0; k < datesInMonths[j]; k++) {
-          for (let l = 1; l < 106; l++) {
-            date = years[i] + '-' + months[j] + '-' + dates[k];
-            bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
-          }
-        }
+    // for (let i = 0; i < years.length; i++) {
+    //   for (let j = 0; j < datesInMonths.length; j++) {
+    //     for (let k = 0; k < datesInMonths[j]; k++) {
+      for (let l = 1; l < 106; l++) {
+        // date = years[i] + '-' + months[j] + '-' + dates[k];
+        date = '2020-09-17';
+        bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
       }
-    }
+//     }
+//   }
+// }
     BookingDate.sync({force: true}).then(() => BookingDate.bulkCreate(bookingDates, {validate: true})).then(() => console.log('Bookings created.')).catch(err => console.log('failed to create bookings', err));
   };
 
