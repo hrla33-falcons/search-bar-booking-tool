@@ -50,6 +50,7 @@ app.get('/listings/search', (req, res) => {
 });
 
 app.get('/listings/:id', (req, res) => {
+  console.log('hi');
   Listing.findAll({where: {id: req.params.id}}).then(results => {
     console.log(results);
     res.status(200).send(results);

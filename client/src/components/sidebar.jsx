@@ -18,11 +18,11 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className='al-sidebar'>
-        <div className='al-booking-tool-container'>
+        <div className='al-booking-tool-container al-nav'>
           <BookingTool />
-        </div>
-        <div className='al-booking-footer-container'>
-          <BookingFooter />
+          <div className='al-booking-footer-container'>
+            <BookingFooter />
+          </div>
         </div>
       </div>
     );

@@ -61,6 +61,7 @@ class CalendarDisplay extends React.Component {
         } else {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate1(this.state.check_out);
+            this.props.closeCalendar();
           }));
         }
       } else {
@@ -72,6 +73,7 @@ class CalendarDisplay extends React.Component {
         } else {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: this.state.year + '-' + monthNumbers[months.indexOf(this.state.month)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate1(this.state.check_out);
+            this.props.closeCalendar();
           }));
         }
       }
@@ -131,6 +133,7 @@ class CalendarDisplay extends React.Component {
         } else {
           this.setState({check_out_number: e.target.childNodes[0].innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate1(this.state.check_out);
+            this.props.closeCalendar();
           }));
         }
       } else {
@@ -142,6 +145,7 @@ class CalendarDisplay extends React.Component {
         } else {
           this.setState({check_out_number: e.target.innerHTML}, () => this.setState({check_out: year2 + '-' + monthNumbers[months.indexOf(month2)] + '-' + dates2[Number(this.state.check_out_number) - 1]}, () => {
             this.props.setCheckOutDate1(this.state.check_out);
+            this.props.closeCalendar();
           }));
         }
       }

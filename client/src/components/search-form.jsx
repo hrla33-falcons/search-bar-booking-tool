@@ -65,6 +65,7 @@ class SearchForm extends React.Component {
     }
   }
 
+
   selectSearchResult(id) {
     this.setState({term: '', searchlistings: []}, () => {
       axios.get(`/listings/${id}`)
@@ -85,10 +86,6 @@ class SearchForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('hi');
-    console.log(this.state.selected);
-    console.log(this.props.selectCheckInDate1);
-    console.log(this.props.selectCheckOutDate1);
     if (this.state.selected && this.props.selectCheckInDate1 && this.props.selectCheckOutDate1) {
       this.props.setTitle(this.state.title);
       this.props.setCleaningFee(this.state.cleaningfee);
