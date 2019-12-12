@@ -1,6 +1,6 @@
 // jshint esversion:6
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('austinservice', 'root', null, {
+const sequelize = new Sequelize('austinservice', 'austinliu', null, {
     dialect: 'mysql'
 });
 
