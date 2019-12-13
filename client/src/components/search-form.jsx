@@ -31,7 +31,8 @@ class SearchForm extends React.Component {
       city: '',
       pic: '',
       rate: 0,
-      selected: false
+      selected: false,
+      clicked: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckInSelect = this.handleCheckInSelect.bind(this);
@@ -61,10 +62,10 @@ class SearchForm extends React.Component {
         params: {query: this.state.term}
       }).then(results => results.data)
       .then(data => this.setState({searchlistings: data}))
+      .then(() => this.setState({clicked: false}))
       .catch(err => console.log(err));
     }
   }
-
 
   selectSearchResult(id) {
     this.setState({term: '', searchlistings: []}, () => {
@@ -74,7 +75,7 @@ class SearchForm extends React.Component {
         this.setState({title: data.title}, () => this.setState({cleaningfee: data.cleaning_fee}, () => this.setState({sleepcapacity: data.sleep_capacity}, () => this.setState({reviewnumber: data.review_number}, () => this.setState({reviewoverview: data.review_overview}, () => this.setState({owner: data.owner}, this.setState({rating: data.rating}, () => this.setState({usstate: data.state}, () => this.setState({city: data.city}, () => this.setState({pic: data.pic}, () => null))))))))));
       }).then(() => axios.get(`http://localhost:3000/dates/${id}`)).then(datesData => {
         this.setState({rate: datesData.data[0].rate}, () => {
-          this.setState({selected: true});
+          this.setState({selected: true}, () => this.setState({clicked: true}));
           if (!this.state.calendar) {
             this.setState({calendar: true});
           }
@@ -119,7 +120,7 @@ class SearchForm extends React.Component {
   render() {
     return (
       <div className='al-search-form-container'>
-        <SearchBar handleChange={this.handleChange} term={this.state.term}/>
+        <SearchBar handleChange={this.handleChange} term={this.state.clicked ? this.state.city + ', ' + this.state.usstate : this.state.term}/>
         <CheckInInput check_in={this.state.check_in} handleCheckInSelect={this.handleCheckInSelect} openCalendar={this.openCalendar}/>
         <CheckOutInput check_out={this.state.check_out} handleCheckOutSelect={this.handleCheckOutSelect} openCalendar={this.openCalendar}/>
         <SearchButton handleSubmit={this.handleSubmit}/>
@@ -136,7 +137,16 @@ class SearchForm extends React.Component {
           }
         </div>
         <div className='al-search-dropdown-container'>
-          <SearchDropdown selectSearchResult={this.selectSearchResult} searchlistings={this.state.searchlistings}/>
+        {
+          this.state.term.length ?
+          (
+            <SearchDropdown selectSearchResult={this.selectSearchResult} searchlistings={this.state.searchlistings.slice(0, 10)}/>
+          )
+          :
+          (
+            null
+          )
+        }
         </div>
       </div>
     );

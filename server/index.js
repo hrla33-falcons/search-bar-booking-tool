@@ -37,22 +37,20 @@ app.put('/dates/check_out/:id', (req, res) => {
 // get by location
 app.get('/listings/search', (req, res) => {
   let results = [];
-  Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.query.query + '%'}}}).then(assets => {
+  Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.query.query + '%'}}}).then(assets => {
     results.push(assets);
     Listing.findAll({limit: 10, where: {city: {[Op.like]: '%' + req.query.query + '%'}}}).then(newAssets => {
       results.push(newAssets.slice(0, 10 - results.length));
-      Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.query.query + '%'}}}).then(titleAssets => {
-        results.push(titleAssets.slice(0, 10 - results.length));
-        res.status(200).send(results[0]);
+      Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.query.query + '%'}}}).then(titleAssets => {
+        results.push(titleAssets);
+        res.status(200).send(results[0].concat(results[1].concat(results[2])));
       }).catch(err => res.status(404).send(err));
     }).catch(err => res.status(404).send(err));
   }).catch(err => res.status(404).send(err));
 });
 
 app.get('/listings/:id', (req, res) => {
-  console.log('hi');
   Listing.findAll({where: {id: req.params.id}}).then(results => {
-    console.log(results);
     res.status(200).send(results);
   }).catch(err => res.status(404).send(err));
 });

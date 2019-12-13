@@ -26,7 +26,7 @@ class SearchResult extends React.Component {
         </div>
         <div className='al-search-result-text-container'>
           <div className='al-search-result-title-container'>
-            <span className='al-search-result-text al-gray'>{`${this.props.searchlisting.title}`}</span>
+            <span className='al-search-result-text al-gray'>{`${this.props.searchlisting.title.slice(0, 61)}`}</span>
           </div>
           <div className='al-search-result-location-container'>
             <div className='al-search-result-city-container'>
