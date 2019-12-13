@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
-    "convert-css": "sass  --watch client/src/style.sass:client/dist/style.css",
+    "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "seed-db": "node dbhelpers/seed.js"
   },
   "repository": {
