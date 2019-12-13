@@ -26,7 +26,7 @@ const Listing = require('./models').Listing;
     // for (let i = 0; i < years.length; i++) {
     //   for (let j = 0; j < datesInMonths.length; j++) {
     //     for (let k = 0; k < datesInMonths[j]; k++) {
-      for (let l = 1; l < 106; l++) {
+      for (let l = 1; l < 101; l++) {
         // date = years[i] + '-' + months[j] + '-' + dates[k];
         date = '2020-09-17';
         bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
@@ -41,7 +41,7 @@ const Listing = require('./models').Listing;
     let k;
     let listings = [];
     let obj;
-    for (let i = 0; i < 105; i++) {
+    for (let i = 0; i < 100; i++) {
       obj = {};
       let title = listingAdjectives[Math.floor(Math.random() * listingAdjectives.length)] + ' ' + listingStyles[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)];
       obj.title = title.slice(0, 1).toUpperCase() + title.slice(1);

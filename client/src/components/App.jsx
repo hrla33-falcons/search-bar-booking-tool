@@ -24,7 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let randomNumber = Math.floor(Math.random() * 104) + 1;
-    axios.get(`http://localhost:3000/listings/${randomNumber}`)
+    axios.get(`/listings/${randomNumber}`)
     .then((results) => results.data[0]).catch(err => console.log(err))
     .then(data => {
       this.props.setTitle(data.title);
@@ -39,7 +39,7 @@ class App extends React.Component {
       this.props.setPic(data.pic);
       return data.id;
     })
-    .then(id => axios.get(`http://localhost:3000/dates/${id}`))
+    .then(id => axios.get(`/dates/${id}`))
     .then(dates => this.props.setRate(dates.data[0].rate))
     .catch(error => console.log(error));
     ;
