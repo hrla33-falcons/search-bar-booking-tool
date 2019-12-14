@@ -24,7 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let randomNumber = Math.floor(Math.random() * 104) + 1;
-    axios.get(`/listings/${randomNumber}`)
+    axios.get(`/mlistings/${randomNumber}`)
     .then((results) => results.data[0]).catch(err => console.log(err))
     .then(data => {
       this.props.setTitle(data.title);
