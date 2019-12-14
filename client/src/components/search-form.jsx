@@ -58,7 +58,7 @@ class SearchForm extends React.Component {
 
   searchListings() {
     if (this.state.term) {
-      axios.get(`/mlistings/search`, {
+      axios.get(`/listings/search`, {
         params: {query: this.state.term}
       }).then(results => results.data)
       .then(data => this.setState({searchlistings: data}))
@@ -69,7 +69,7 @@ class SearchForm extends React.Component {
 
   selectSearchResult(id) {
     this.setState({term: '', searchlistings: []}, () => {
-      axios.get(`/mlistings/${id}`)
+      axios.get(`/listings/${id}`)
       .then(results => results.data[0])
       .then(data => {
         this.setState({title: data.title}, () => this.setState({cleaningfee: data.cleaning_fee}, () => this.setState({sleepcapacity: data.sleep_capacity}, () => this.setState({reviewnumber: data.review_number}, () => this.setState({reviewoverview: data.review_overview}, () => this.setState({owner: data.owner}, this.setState({rating: data.rating}, () => this.setState({usstate: data.state}, () => this.setState({city: data.city}, () => this.setState({pic: data.pic}, () => null))))))))));
