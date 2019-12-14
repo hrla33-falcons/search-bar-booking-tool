@@ -87,22 +87,23 @@ class SearchForm extends React.Component {
   }
 
   handleSubmit(e) {
-    if (this.state.selected && this.props.selectCheckInDate1 && this.props.selectCheckOutDate1) {
-      this.props.setTitle(this.state.title);
-      this.props.setCleaningFee(this.state.cleaningfee);
-      this.props.setSleepCapacity(this.state.sleepcapacity);
-      this.props.setReviewNumber(this.state.reviewnumber);
-      this.props.setReviewOverview(this.state.reviewoverview);
-      this.props.setOwner(this.state.owner);
-      this.props.setRating(this.state.rating);
-      this.props.setUSState(this.state.usstate);
-      this.props.setCity(this.state.city);
-      this.props.setPic(this.state.pic);
-      this.props.setRate(this.state.rate);
-      this.props.setCheckInDate1('');
-      this.props.setCheckOutDate1('');
-      this.props.makeInvalid();
-    }
+    window.location.reload();
+    // if (this.state.selected && this.props.selectCheckInDate1 && this.props.selectCheckOutDate1) {
+    //   this.props.setTitle(this.state.title);
+    //   this.props.setCleaningFee(this.state.cleaningfee);
+    //   this.props.setSleepCapacity(this.state.sleepcapacity);
+    //   this.props.setReviewNumber(this.state.reviewnumber);
+    //   this.props.setReviewOverview(this.state.reviewoverview);
+    //   this.props.setOwner(this.state.owner);
+    //   this.props.setRating(this.state.rating);
+    //   this.props.setUSState(this.state.usstate);
+    //   this.props.setCity(this.state.city);
+    //   this.props.setPic(this.state.pic);
+    //   this.props.setRate(this.state.rate);
+    //   this.props.setCheckInDate1('');
+    //   this.props.setCheckOutDate1('');
+    //   this.props.makeInvalid();
+    // }
   }
 
   handleChange(e) {
