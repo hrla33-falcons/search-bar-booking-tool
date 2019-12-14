@@ -51,9 +51,6 @@ class App extends React.Component {
         <div className='al-header-container'>
           <Header />
         </div>
-        <div className='al-sidebar-container'>
-          <Sidebar />
-        </div>
       </div>
     );
   }
