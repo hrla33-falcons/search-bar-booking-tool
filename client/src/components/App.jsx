@@ -1,7 +1,7 @@
 // jshint esversion:6
 import React from 'react';
 import Header from './header.jsx';
-import Sidebar from './sidebar.jsx';
+// import Sidebar from './sidebar.jsx';
 import axios from 'axios';
 import {setRate, setTotal, setTitle, setSleepCapacity, setReviewOverview, setRating, setReviewNumber, setOwner, setCleaningFee, setUSState, setCity, setPic} from '../redux/booking/booking.action.js';
 import { connect } from 'react-redux';
@@ -10,15 +10,15 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      check_in_date: '',
-      check_out_date: '',
-      adults: null,
-      children: null,
-      reviews: null,
-      cleaning_fee: null,
-      owner: '',
-      rating: null,
-      total: null
+      // check_in_date: '',
+      // check_out_date: '',
+      // adults: null,
+      // children: null,
+      // reviews: null,
+      // cleaning_fee: null,
+      // owner: '',
+      // rating: null,
+      // total: null
     };
   }
 
