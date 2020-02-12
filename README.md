@@ -1,5 +1,13 @@
 # Search Bar and Booking Tool Services
 
+![alt text](/public/image4.png)
+
+![alt text](/public/image1.png)
+
+![alt text](/public/image3.png)
+
+![alt text](/public/image2.png)
+
 This module consists of the search bar and booking tool services. The search bar allows the user to search for rental listings by title, city, or state. A dual date picker allows users to select start and end dates to find whether the listing is available through those dates.
 
 The booking tool allows the user to select dates to stay in the listing and generates a booking price summary based on the nightly rate, number of days stayed, number of guests, and additional fees. The user can view their booking price summary and change around the dates for their stay and/or number of guests planned and the total price will be re-calculated in real-time.
