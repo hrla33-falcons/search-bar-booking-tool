@@ -6,8 +6,11 @@ The booking tool allows the user to select dates to stay in the listing and gene
 
 ## Related Projects
 https://github.com/hrla33-falcons/al-proxy-sdc
+
 https://github.com/hrla33-falcons/overview-amenities
+
 https://github.com/hrla33-falcons/carousel-recommend-listings
+
 https://github.com/hrla33-falcons/Reviews
 
 ## Table of Contents
