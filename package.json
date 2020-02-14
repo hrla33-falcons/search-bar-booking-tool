@@ -4,11 +4,18 @@
   "description": "service for booking tool/top nav header",
   "main": "./server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "testjest": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "seed-db": "node dbhelpers/seed.js"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/setUpEnzyme.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -44,11 +51,14 @@
     "svg-inline-loader": "^0.8.0"
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
     "babel-loader": "^8.0.6",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "jest": "^24.9.0",
   }
 }

@@ -1,11 +1,11 @@
 # Search Bar and Booking Tool Services
-
+search-bar
 ![alt text](/public/image4.png)
-
+dual date-picker
 ![alt text](/public/image1.png)
-
+sticky booking-tool
 ![alt text](/public/image3.png)
-
+booking summary
 ![alt text](/public/image2.png)
 
 This module consists of the search bar and booking tool services. The search bar allows the user to search for rental listings by title, city, or state. A dual date picker allows users to select start and end dates to find whether the listing is available through those dates.

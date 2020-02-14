@@ -1,0 +1,18 @@
+
+version: '3'
+services:
+  mysql-dev:
+    image: mysql:5.7.26
+    environment:
+      MYSQL_USER: "austinliu"
+      MYSQL_DATABASE: "austinservice"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "mysql-dev"
+    command: bash -c "./wait-for-it.sh mysql-dev:3306 && npm run seeddb && && npm run react:dev && npm run start"
