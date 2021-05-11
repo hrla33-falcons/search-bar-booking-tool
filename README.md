@@ -56,7 +56,7 @@ npm install -g webpack
 npm install
 ```
 
-### CRUD API
+### REST API Endpoints
 
 Read/GET:
 ```
